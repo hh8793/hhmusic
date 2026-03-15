@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音乐小课堂 - 小学生学音乐</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 标题 -->
+        <header class="header">
+            <h1>🎵 音乐小课堂 🎵</h1>
+            <p class="subtitle">让我们一起快乐学音乐！</p>
+        </header>
+
+        <!-- 导航栏 -->
+        <nav class="nav">
+            <button class="nav-btn active" data-section="learn">📚 学习知识</button>
+            <button class="nav-btn" data-section="practice">🎯 识谱练习</button>
+            <button class="nav-btn" data-section="rhythm">🥁 节奏练习</button>
+            <button class="nav-btn" data-section="piano">🎹 虚拟钢琴</button>
+        </nav>
+
+        <!-- 内容区域 -->
+        <main class="main-content">
+            <!-- 学习知识模块 -->
+            <section id="learn" class="section active">
+                <h2>📚 音乐知识学习</h2>
+                
+                <div class="knowledge-cards">
+                    <div class="card" onclick="showNoteDetail()">
+                        <div class="card-icon">🎼</div>
+                        <h3>认识音符</h3>
+                        <p>学习基本的音符：Do、Re、Mi、Fa、Sol、La、Si</p>
+                    </div>
+                    
+                    <div class="card" onclick="showDurationDetail()">
+                        <div class="card-icon">⏱️</div>
+                        <h3>音符时长</h3>
+                        <p>了解全音符、二分音符、四分音符等</p>
+                    </div>
+                    
+                    <div class="card" onclick="showClefDetail()">
+                        <div class="card-icon">🎵</div>
+                        <h3>认识谱号</h3>
+                        <p>学习高音谱号和低音谱号</p>
+                    </div>
+                </div>
+
+                <!-- 音符展示区域 -->
+                <div id="noteDisplay" class="note-display hidden">
+                    <div class="close-btn" onclick="closeDisplay()">✕</div>
+                    <div id="noteContent"></div>
+                </div>
+            </section>
+
+            <!-- 识谱练习模块 -->
+            <section id="practice" class="section">
+                <h2>🎯 识谱练习</h2>
+                <p>点击听到的音符！</p>
+                
+                <div class="practice-area">
+                    <div class="score-display">
+                        <span>得分：</span>
+                        <span id="score">0</span>
+                    </div>
+                    
+                    <button class="play-btn" onclick="playRandomNote()">🎵 播放音符</button>
+                    
+                    <div class="answer-buttons">
+                        <button class="answer-btn" data-note="C" onclick="checkAnswer('C')">Do</button>
+                        <button class="answer-btn" data-note="D" onclick="checkAnswer('D')">Re</button>
+                        <button class="answer-btn" data-note="E" onclick="checkAnswer('E')">Mi</button>
+                        <button class="answer-btn" data-note="F" onclick="checkAnswer('F')">Fa</button>
+                        <button class="answer-btn" data-note="G" onclick="checkAnswer('G')">Sol</button>
+                        <button class="answer-btn" data-note="A" onclick="checkAnswer('A')">La</button>
+                        <button class="answer-btn" data-note="B" onclick="checkAnswer('B')">Si</button>
+                    </div>
+                    
+                    <div id="feedback" class="feedback"></div>
+                </div>
+            </section>
+
+            <!-- 节奏练习模块 -->
+            <section id="rhythm" class="section">
+                <h2>🥁 节奏练习</h2>
+                <p>跟着节拍拍手！</p>
+                
+                <div class="rhythm-area">
+                    <div class="tempo-control">
+                        <label for="tempo">速度：</label>
+                        <input type="range" id="tempo" min="40" max="160" value="80">
+                        <span id="tempoValue">80 BPM</span>
+                    </div>
+                    
+                    <div class="rhythm-visualizer">
+                        <div class="beat" id="beat1">1</div>
+                        <div class="beat" id="beat2">2</div>
+                        <div class="beat" id="beat3">3</div>
+                        <div class="beat" id="beat4">4</div>
+                    </div>
+                    
+                    <button class="control-btn" id="rhythmStartBtn" onclick="toggleRhythm()">▶️ 开始</button>
+                    
+                    <div class="rhythm-patterns">
+                        <h3>选择节奏型：</h3>
+                        <button class="pattern-btn active" data-pattern="44">4/4 拍</button>
+                        <button class="pattern-btn" data-pattern="34">3/4 拍</button>
+                        <button class="pattern-btn" data-pattern="24">2/4 拍</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 虚拟钢琴模块 -->
+            <section id="piano" class="section">
+                <h2>🎹 虚拟钢琴</h2>
+                <p>点击琴键或使用键盘演奏！</p>
+                
+                <div class="piano-container">
+                    <div class="piano">
+                        <!-- 白键 -->
+                        <button class="white-key" data-note="C4" onclick="playPianoNote('C4')">C</button>
+                        <button class="white-key" data-note="D4" onclick="playPianoNote('D4')">D</button>
+                        <button class="white-key" data-note="E4" onclick="playPianoNote('E4')">E</button>
+                        <button class="white-key" data-note="F4" onclick="playPianoNote('F4')">F</button>
+                        <button class="white-key" data-note="G4" onclick="playPianoNote('G4')">G</button>
+                        <button class="white-key" data-note="A4" onclick="playPianoNote('A4')">A</button>
+                        <button class="white-key" data-note="B4" onclick="playPianoNote('B4')">B</button>
+                        <button class="white-key" data-note="C5" onclick="playPianoNote('C5')">C</button>
+                        
+                        <!-- 黑键 -->
+                        <button class="black-key" data-note="C#4" onclick="playPianoNote('C#4')"></button>
+                        <button class="black-key" data-note="D#4" onclick="playPianoNote('D#4')"></button>
+                        <button class="black-key" data-note="F#4" onclick="playPianoNote('F#4')"></button>
+                        <button class="black-key" data-note="G#4" onclick="playPianoNote('G#4')"></button>
+                        <button class="black-key" data-note="A#4" onclick="playPianoNote('A#4')"></button>
+                    </div>
+                </div>
+                
+                <div class="keyboard-hint">
+                    <p>键盘快捷键：<br>
+                    A → Do | S → Re | D → Mi | F → Fa | G → Sol | H → La | J → Si | K → 高音Do</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>🌟 音乐小课堂 - 让学习音乐变得简单有趣！ 🌟</p>
+        </footer>
+    </div>
+
+    <script src="audioUtils.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
